@@ -21,16 +21,29 @@ def bit_flip_Y(x):
 #     return prob_1, prob_2
     return probs
 
+# def measurement(x,y):
+#     p1 = abs(x)**2
+#     p2 = abs(y)**2
+#     diff = 1 - (p1+p2)
+#     p1 = p1+diff
+#     return np.random.choice(2, 1, p=[p1,p2])
 def measurement(x,y):
     p1 = abs(x)**2
     p2 = abs(y)**2
     diff = 1 - (p1+p2)
     p1 = p1+diff
-    return np.random.choice(2, 1, p=[p1,p2])
+    bit =  np.random.choice(2, 1, p=[p1,p2])
+    if bit==1:
+        state = np.array([0+0j,1+0j])
+    elif bit==0:
+        state = np.array([1+0j,0+0j])
+    return state
 
 def bit_flip_X(x):
     matrix = np.array([[0, 1],[1,0]])
     x = np.squeeze(x)
+    print(x)
+    print(matrix)
     probs = np.matmul(matrix,x)
 #     prob_1 = probs[0]
 #     prob_2 = probs[1]
@@ -41,6 +54,8 @@ def hadamard_X(x):
     matrix = np.array([[1, 1],[1,-1]])
     x = np.squeeze(x)
     matrix = matrix/math.sqrt(2)
+    print(x)
+    print(matrix)
 #     state = np.array([x,y])
     probs = np.matmul(matrix,x)
 #     prob_1 = probs[0]
@@ -52,6 +67,8 @@ def hadamard_Y(x):
     matrix = np.array([[1, -1j],[1j,-1]])
     x = np.squeeze(x)
     matrix = matrix/math.sqrt(2)
+    print(x)
+    print(matrix)
 #     state = np.array([x,y])
     probs = np.matmul(matrix,x)
 #     prob_1 = probs[0]
@@ -63,13 +80,20 @@ def nothing(x):
     return x
 
 
-def reward(error_t, error_t1):
-    if(error_t> error_t1):
+# def reward(error_t, error_t1):
+#     if(error_t> error_t1):
+#         reward = 1
+#     elif(error_t==error_t1):
+#         reward = 0
+#     elif(error_t<error_t1):
+#         reward = -1
+#     return reward
+
+def reward(state, final_state):
+    if np.allclose(state,final_state):
         reward = 1
-    elif(error_t==error_t1):
+    else:
         reward = 0
-    elif(error_t<error_t1):
-        reward = -1
     return reward
 
 
