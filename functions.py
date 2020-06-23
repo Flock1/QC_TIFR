@@ -42,8 +42,8 @@ def measurement(x,y):
 def bit_flip_X(x):
     matrix = np.array([[0, 1],[1,0]])
     x = np.squeeze(x)
-    print(x)
-    print(matrix)
+#     print(x)
+#     print(matrix)
     probs = np.matmul(matrix,x)
 #     prob_1 = probs[0]
 #     prob_2 = probs[1]
@@ -54,8 +54,8 @@ def hadamard_X(x):
     matrix = np.array([[1, 1],[1,-1]])
     x = np.squeeze(x)
     matrix = matrix/math.sqrt(2)
-    print(x)
-    print(matrix)
+#     print(x)
+#     print(matrix)
 #     state = np.array([x,y])
     probs = np.matmul(matrix,x)
 #     prob_1 = probs[0]
@@ -67,8 +67,8 @@ def hadamard_Y(x):
     matrix = np.array([[1, -1j],[1j,-1]])
     x = np.squeeze(x)
     matrix = matrix/math.sqrt(2)
-    print(x)
-    print(matrix)
+#     print(x)
+#     print(matrix)
 #     state = np.array([x,y])
     probs = np.matmul(matrix,x)
 #     prob_1 = probs[0]
@@ -91,9 +91,9 @@ def nothing(x):
 
 def reward(state, final_state):
     if np.allclose(state,final_state):
-        reward = 1
+        reward = 1.0
     else:
-        reward = 0
+        reward = 0.0
     return reward
 
 
@@ -107,9 +107,11 @@ def projection(state, final_state):
 
 
 def discounted_reward(r, gamma):
+    print("in discounted reward")
     discounted_r = np.zeros_like(r)
-    running_add = 0
+#     running_add = 0
     for i in reversed(range(0, r.size)):
+        if r[i] != 0: running_add=0
         running_add = running_add*gamma + r[i]
         discounted_r[i] = running_add
     return discounted_r
