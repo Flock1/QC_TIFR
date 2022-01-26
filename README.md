@@ -6,7 +6,7 @@ This repo consists of a reinforcement learning implementation that has learned t
 
 ### TRAINING
 
-`code_clean.ipynb` consists of the clean implementation of the training process. This implementation uses vanilla policy gradient to train the model. Vanilla policy gradient is an efficient on-policy training technique that has worked for a lot of Atari games. This has been developed using Keras library. 
+`code_clean.ipynb` consists of the clean implementation of the training process. This implementation uses vanilla policy gradient to train the model. Vanilla policy gradient is an efficient gradient based training technique that has worked for a lot of Atari games. This has been developed using Keras library. 
 
 The second implementation is `torch.ipynb` that uses PyTorch and was trained using the Proximal Policy Optimization (PPO), which was developed by OpenAI.
 ### TESTING
